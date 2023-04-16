@@ -69,3 +69,7 @@
 .save-tweet-button:disabled {
   color: #e01673;
 }
+
+.save-tweet-button:disabled:hover {
+  background: #f91880;
+}

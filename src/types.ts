@@ -16,7 +16,7 @@ export type TweetImage = {
 
 export type Tweet = {
   id: string;
-  date: Date;
+  time: Date;
   source: string;
   text?: string;
   images: TweetImage[];

@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Tweet } from "../../types";
 
 import "./scrape-item.styles.css";
+import { postTweet } from "../../services/api";
 
 type Props = {
   tweet: Tweet;
@@ -10,8 +11,7 @@ type Props = {
 export const ScrapeItem: FC<Props> = ({ tweet }) => {
   const [saved, setSaved] = useState(false);
 
-  // TODO: implement this method
-  const handleClickSave = () => {};
+  const handleClickSave = () => postTweet(tweet).then(() => setSaved(true));
 
   return (
     <li className="tweet-item">
