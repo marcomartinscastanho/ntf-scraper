@@ -1,8 +1,10 @@
 import React, { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Tweet } from "../../types";
+import { postTweet } from "../../services/api";
+import { useSession } from "../../contexts/session.context";
 
 import "./scrape-item.styles.css";
-import { postTweet } from "../../services/api";
 
 type Props = {
   tweet: Tweet;
@@ -10,8 +12,19 @@ type Props = {
 
 export const ScrapeItem: FC<Props> = ({ tweet }) => {
   const [saved, setSaved] = useState(false);
+  const { setSessionToken } = useSession();
+  const navigate = useNavigate();
 
-  const handleClickSave = () => postTweet(tweet).then(() => setSaved(true));
+  const handleClickSave = () =>
+    postTweet(tweet)
+      .then(() => setSaved(true))
+      .catch((r) => {
+        alert(r.status);
+        if (r.status === 401) {
+          setSessionToken(undefined);
+          navigate("/");
+        }
+      });
 
   return (
     <li className="tweet-item">

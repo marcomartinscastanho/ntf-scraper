@@ -24,9 +24,14 @@ const messagesFromReactAppListener = (
       const imgs = tweet.getElementsByTagName("img");
       const images = Array.from(imgs).filter((img) => img.src.includes("/media/"));
 
+      const aContainingId = Array.from(as).find((a) => a.href.includes("/status/"));
+      const indexAContainingId = aContainingId ? Array.from(as).indexOf(aContainingId) : undefined;
+      const aContainingName = indexAContainingId ? as.item(indexAContainingId - 2) ?? undefined : undefined;
+
       return {
-        id: as.item(3)?.href.replace("https://twitter.com/", ""),
-        source: as.item(0)?.href,
+        id: aContainingId?.href.replace("https://twitter.com/", ""),
+        source: aContainingId?.href.split("/status/").at(0),
+        name: aContainingName ? convert(aContainingName.innerHTML).trim() : undefined,
         time: time.item(0)?.dateTime,
         text: tweetText,
         images: images.map((image) => {

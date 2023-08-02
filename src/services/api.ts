@@ -45,6 +45,7 @@ export const postTweet = async (tweet: Tweet): Promise<void> => {
   const body = {
     id: tweet.id.split("/").at(-1),
     author: tweet.source.split("/").at(-1),
+    name: tweet.name,
     source: tweet.source,
     tweeted: tweet.time,
     images: tweet.images,
@@ -56,5 +57,5 @@ export const postTweet = async (tweet: Tweet): Promise<void> => {
   if (response.status === 201) {
     return responseBody;
   }
-  return Promise.reject(responseBody);
+  return Promise.reject(response);
 };

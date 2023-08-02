@@ -3,14 +3,14 @@ import { usePersistState } from "../utils/use-persist-state";
 
 interface ISessionContext {
   sessionToken: string | undefined;
-  setSessionToken: (st: string) => void;
+  setSessionToken: (st: string | undefined) => void;
   clearSessionToken: () => void;
 }
 
 export const SessionContext = createContext<ISessionContext>({} as ISessionContext);
 
 export const SessionProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [sessionToken, setSessionToken] = usePersistState<string>("sessionToken");
+  const [sessionToken, setSessionToken] = usePersistState<string | undefined>("sessionToken");
 
   const clearSessionToken = () => setSessionToken(undefined);
 

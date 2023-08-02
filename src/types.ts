@@ -18,6 +18,7 @@ export type Tweet = {
   id: string;
   time: Date;
   source: string;
+  name: string;
   text?: string;
   images: TweetImage[];
 };
